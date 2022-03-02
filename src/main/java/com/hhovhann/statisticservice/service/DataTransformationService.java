@@ -1,16 +1,16 @@
 package com.hhovhann.statisticservice.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class DataTransformationService {
     private final static String CHAR_SEPARATOR = " ";
+    private final static String DASH_SEPARATOR = "-";
 
     public Number reverse(String data, String inputType) {
         return switch (inputType) {
@@ -21,23 +21,26 @@ public class DataTransformationService {
     }
 
     private static int reverseInteger(Number number) {
-        int n = number.intValue();
-        int reversedNumber = 0;
-        int remainder;
-        while (n > 0) {
-            remainder = n % 10;
-            reversedNumber = (reversedNumber * 10) + remainder;
-            n = n / 10;
+        String reversed;
+        if (number.toString().startsWith(DASH_SEPARATOR)) {
+            reversed = DASH_SEPARATOR + new StringBuffer(negate(number.toString(), "integer").toString()).reverse();
+        } else {
+            reversed = new StringBuffer(number.toString()).reverse().toString();
         }
-        return reversedNumber;
+        return Integer.parseInt(reversed);
     }
 
     private static double reverseDouble(Number number) {
-        String reversed = new StringBuffer(number.toString()).reverse().toString();
+        String reversed;
+        if (number.toString().startsWith(DASH_SEPARATOR)) {
+            reversed = DASH_SEPARATOR + new StringBuffer(negate(number.toString(), "double").toString()).reverse();
+        } else {
+            reversed = new StringBuffer(number.toString()).reverse().toString();
+        }
         return Double.parseDouble(reversed);
     }
 
-    public Number negate(String data, String inputType) {
+    public static Number negate(String data, String inputType) {
         return switch (inputType) {
             case "integer" -> Math.negateExact(NumberUtils.parseNumber(data, Integer.class));
             case "double" -> -NumberUtils.parseNumber(data, Double.class);

@@ -1,26 +1,28 @@
-# statistic-service
-Statistic provider application
+# Statistic-Service Demo Console Application
+Statistic provider demo application
 
+# Application tech stack
+* Java 17
+* Spring Boot 2.6.4
 
-# Run different Scenarios
+# Software Design
+Using Spring Boot Framework to provide the way of using Dependency Injection (IoC). In main application class have Field injections in Data Processor service constructor injections
 
-* Scenario 1: java com.hhovhann.StatisticServiceApplication --input=input1.txt --inputtype=string --operations=cap --threads=1 --output=output1.txt
-* Scenario 2: java com.hhovhann.StatisticServiceApplication --input=input2.txt --inputtype=int --operations=rev,neg --threads=1  --output=output2.txt
-* Scenario 3: java com.hhovhann.StatisticServiceApplication --input=input3.txt --inputtype=double --operations=rev,neg --threads=1  --output=output3.txt
+* CommandLineParserService - responsible for parsing CLI arguments
+* DataProcessingService - responsible for process data reading and transformation (may say data processor)
+* DataTransformationService - responsible for data transformation based on operations and input types (reveres, negate, capitalize)
+* FileTransformationService - responsible for read and write data from and to input/output files
 
+## How to run application with different Scenarios from IDEA
+* Add environment arguments: `--input input1.txt --inputtype string --operations cap --threads 1 --output output1.txt` and run the application
+* Add environment arguments: `--input input2.txt --inputtype integer --operations rev,neg --threads 1  --output output2.txt` and run the application
+* Add environment arguments: `--input input3.txt --inputtype double --operations rev,neg --threads 1  --output output3.txt` and run the application
 
-```TODO WITH  ...
-System.out.println( "INFO - demo starting.  " + Instant.now() );
+## How to run application with different Scenarios (Under construction ... :)
+* Run task1.sh for Scenario 1 with arguments: `--input input1.txt --inputtype string --operations cap --threads 1 --output output1.txt`
+* Run task2.sh for Scenario 2 with arguments: `--input input2.txt --inputtype integer --operations rev,neg --threads 1  --output output2.txt`
+* Run task3.sh for Scenario 3 with arguments: `--input input3.txt --inputtype double --operations rev,neg --threads 1  --output output3.txt`
 
-// Submit tasks to run on background threads.
-ExecutorService executorService = Executors.newFixedThreadPool(2);
-for ( int i = 0 ; i < 100 ; i++ ) { 
-    executorService.submit( ( ) -> System.out.println( "Thread id " + Thread.currentThread().getId() + " is executing its task at " + Instant.now() ) );
-}
-
-// Wait for tasks to complete.
-executorService.shutdown();
-try { executorService.awaitTermination( 1 , TimeUnit.HOURS ); } catch ( InterruptedException e ) { e.printStackTrace(); }
-
-System.out.println( "INFO - demo ending.  " + Instant.now() );
-```
+# Nice to have 
+* Could have enums for switch for operations(rev,neg,cap) and input types(string, integer, double)
+* Could have Integration tests to not testing manually by scripts the correct results
