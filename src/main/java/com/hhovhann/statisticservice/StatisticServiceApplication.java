@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @SpringBootApplication
@@ -38,6 +39,10 @@ public class StatisticServiceApplication implements CommandLineRunner {
         // Read input file and transform statistics based on provided operations
         List<Object> statistics = dataProcessingService.doStatisticProcess(clp);
         // Write statistic data to output file
-        fileTransformationService.writeTo("output" + "/" + clp.getArgumentValues("output"), statistics);
+        if (Objects.isNull(clp.getArgumentValues("output"))) {
+            statistics.forEach(System.out::println);
+        } else {
+            fileTransformationService.writeTo("output" + "/" + clp.getArgumentValues("output"), statistics);
+        }
     }
 }
