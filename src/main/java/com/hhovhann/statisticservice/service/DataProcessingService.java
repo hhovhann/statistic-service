@@ -26,19 +26,10 @@ public class DataProcessingService {
             Object resultData = null;
             String[] operations = clp.getArgumentValues("operations").split(QUOTA_SEPARATOR);
             for (String operation : operations) {
-                resultData = doDataTransformation(currentLine, operation, clp.getArgumentValues("inputtype"));
+                resultData = dataTransformationService.transformData(currentLine, operation, clp.getArgumentValues("inputtype"));
             }
             outputLines.add(resultData);
         }
         return outputLines;
-    }
-
-    private Object doDataTransformation(String currentLine, String operation, String inputtype) {
-        return switch (operation) {
-            case "cap" -> dataTransformationService.capitalize(currentLine);
-            case "rev" -> dataTransformationService.reverse(currentLine, inputtype);
-            case "neg" -> dataTransformationService.negate(currentLine, inputtype);
-            default -> throw new RuntimeException("Operation not supported ...");
-        };
     }
 }

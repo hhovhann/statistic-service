@@ -27,5 +27,6 @@ Using Spring Boot Framework to provide the way of using Dependency Injection (Io
   * Result would be written in output/output3.txt
 
 # Nice to have 
-* Could have enums for switch for operations(rev,neg,cap) and input types(string, integer, double)
+
 * Could have Integration tests to not testing manually by scripts the correct results
+* Task 3, ... solved :)
