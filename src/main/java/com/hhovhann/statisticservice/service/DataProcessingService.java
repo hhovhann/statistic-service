@@ -1,5 +1,6 @@
 package com.hhovhann.statisticservice.service;
 
+import com.hhovhann.statisticservice.data.Statistic;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class DataProcessingService {
             Object resultData = null;
             String[] operations = clp.getArgumentValues("operations").split(QUOTA_SEPARATOR);
             for (String operation : operations) {
-                resultData = dataTransformationService.transformData(currentLine, operation, clp.getArgumentValues("inputtype"));
+                resultData = dataTransformationService.transformData(new Statistic(currentLine, operation, clp.getArgumentValues("inputtype")));
             }
             outputLines.add(resultData);
         }

@@ -16,7 +16,7 @@ class DataTransformationServiceTest {
     DataTransformationService dataTransformationService;
 
     @Test
-    @DisplayName("Should reverse integer value")
+    @DisplayName("Should reverse integer currentLine")
     void should_reverse_integer() {
         // given
         var inputType = "integer";
@@ -29,7 +29,7 @@ class DataTransformationServiceTest {
     }
 
     @Test
-    @DisplayName("Should reverse double value")
+    @DisplayName("Should reverse double currentLine")
     void should_reverse_double() {
         // given
         var inputType = "double";
@@ -42,7 +42,7 @@ class DataTransformationServiceTest {
     }
 
     @Test
-    @DisplayName("Should negate integer value")
+    @DisplayName("Should negate integer currentLine")
     void should_negate_integer_number() {
         // given
         var inputType = "integer";
@@ -55,7 +55,7 @@ class DataTransformationServiceTest {
     }
 
     @Test
-    @DisplayName("Should negate double value")
+    @DisplayName("Should negate double currentLine")
     void should_negate_double_number() {
         // given
         var inputType = "double";

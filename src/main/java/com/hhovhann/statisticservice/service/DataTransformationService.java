@@ -1,5 +1,6 @@
 package com.hhovhann.statisticservice.service;
 
+import com.hhovhann.statisticservice.data.Statistic;
 import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
@@ -12,11 +13,11 @@ public class DataTransformationService {
     private final static String CHAR_SEPARATOR = " ";
     private final static String DASH_SEPARATOR = "-";
 
-    public Object transformData(String currentLine, String operation, String inputtype) {
-        return switch (operation) {
-            case "cap" -> capitalize(currentLine);
-            case "rev" -> reverse(currentLine, inputtype);
-            case "neg" -> negate(currentLine, inputtype);
+    public Object transformData(Statistic statistic) {
+        return switch (statistic.operation()) {
+            case "cap" -> capitalize(statistic.currentLine());
+            case "rev" -> reverse(statistic.currentLine(), statistic.inputType());
+            case "neg" -> negate(statistic.currentLine(), statistic.inputType());
             default -> throw new RuntimeException("Operation not supported ...");
         };
     }

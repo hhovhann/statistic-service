@@ -21,7 +21,7 @@ public class CommandLineParserService {
     }
 
     /***
-     *  Return argument value for particular argument name
+     *  Return argument currentLine for particular argument name
      */
     public String getArgumentValues(String argumentName) {
         return map.getOrDefault(argumentName, null).get(0);
