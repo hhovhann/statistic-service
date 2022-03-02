@@ -40,7 +40,7 @@ public class StatisticServiceApplication implements CommandLineRunner {
         List<Object> statistics = dataProcessingService.doStatisticProcess(clp);
         // Write statistic data to output file
         if (Objects.isNull(clp.getArgumentValues("output"))) {
-            statistics.forEach( current -> log.warn("Output Statistic Data: {}", current));
+            statistics.forEach( current -> log.info("Output Statistic Data: {}", current));
         } else {
             fileTransformationService.writeTo("output" + "/" + clp.getArgumentValues("output"), statistics);
         }
