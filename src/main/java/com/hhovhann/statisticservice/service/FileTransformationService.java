@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +18,11 @@ public class FileTransformationService {
     public List<String> readFrom(String fileName) {
         List<String> lines = new ArrayList<>();
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            URL resource = classLoader.getResource(fileName);
-            if (resource == null) {
-                throw new IllegalArgumentException("file not found! " + fileName);
+            File file = new File("input" + "/" + fileName);
+            if (file.exists()) {
+                lines = FileUtils.readLines(file, UTF_8);
             } else {
-                lines = FileUtils.readLines( new File(resource.getFile()), UTF_8);
+                throw new IllegalArgumentException("File " + fileName + " doesn't exist!");
             }
             log.info("Statistics data successfully read from file.");
         } catch (IOException e) {
@@ -33,9 +31,10 @@ public class FileTransformationService {
         return lines;
     }
 
+
     public void writeTo(String filePath, List<Object> statistics) {
         try {
-            FileUtils.writeLines(new File(filePath), statistics);
+            FileUtils.writeLines(new File("output" + "/" + filePath), statistics);
             log.info("Statistics data successfully added to file.");
         } catch (IOException e) {
             log.error(" An I/O error occurs.", e);
