@@ -20,7 +20,7 @@ public class DataTransformationService {
         };
     }
 
-    private static int reverseInteger(Number number) {
+    private int reverseInteger(Number number) {
         String reversed;
         if (number.toString().startsWith(DASH_SEPARATOR)) {
             reversed = DASH_SEPARATOR + new StringBuffer(negate(number.toString(), "integer").toString()).reverse();
@@ -30,7 +30,7 @@ public class DataTransformationService {
         return Integer.parseInt(reversed);
     }
 
-    private static double reverseDouble(Number number) {
+    private double reverseDouble(Number number) {
         String reversed;
         if (number.toString().startsWith(DASH_SEPARATOR)) {
             reversed = DASH_SEPARATOR + new StringBuffer(negate(number.toString(), "double").toString()).reverse();
@@ -40,7 +40,7 @@ public class DataTransformationService {
         return Double.parseDouble(reversed);
     }
 
-    public static Number negate(String data, String inputType) {
+    public Number negate(String data, String inputType) {
         return switch (inputType) {
             case "integer" -> Math.negateExact(NumberUtils.parseNumber(data, Integer.class));
             case "double" -> -NumberUtils.parseNumber(data, Double.class);
