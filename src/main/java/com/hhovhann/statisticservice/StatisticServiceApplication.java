@@ -38,6 +38,6 @@ public class StatisticServiceApplication implements CommandLineRunner {
         // Read input file and transform statistics based on provided operations
         List<Object> statistics = dataProcessingService.doStatisticProcess(clp);
         // Write statistic data to output file
-        fileTransformationService.writeTo(clp.getArgumentValues("output"), statistics);
+        fileTransformationService.writeTo("output" + "/" + clp.getArgumentValues("output"), statistics);
     }
 }

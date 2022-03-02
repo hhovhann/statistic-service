@@ -15,14 +15,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class FileTransformationService {
 
-    public List<String> readFrom(String fileName) {
+    public List<String> readFrom(String filePath) {
         List<String> lines = new ArrayList<>();
         try {
-            File file = new File("input" + "/" + fileName);
+            File file = new File(filePath);
             if (file.exists()) {
                 lines = FileUtils.readLines(file, UTF_8);
             } else {
-                throw new IllegalArgumentException("File " + fileName + " doesn't exist!");
+                throw new IllegalArgumentException("File " + filePath + " doesn't exist!");
             }
             log.info("Statistics data successfully read from file.");
         } catch (IOException e) {
@@ -34,7 +34,7 @@ public class FileTransformationService {
 
     public void writeTo(String filePath, List<Object> statistics) {
         try {
-            FileUtils.writeLines(new File("output" + "/" + filePath), statistics);
+            FileUtils.writeLines(new File(filePath), statistics);
             log.info("Statistics data successfully added to file.");
         } catch (IOException e) {
             log.error(" An I/O error occurs.", e);

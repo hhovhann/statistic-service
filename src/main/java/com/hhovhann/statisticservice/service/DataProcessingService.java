@@ -20,7 +20,7 @@ public class DataProcessingService {
     public List<Object> doStatisticProcess(CommandLineParserService clp) {
         // Step 1: Read input file
         List<Object> outputLines = new ArrayList<>();
-        List<String> inputLines = fileTransformationService.readFrom(clp.getArgumentValues("input"));
+        List<String> inputLines = fileTransformationService.readFrom("input" + "/" + clp.getArgumentValues("input"));
         for (String currentLine : inputLines) {
             // Step 2: Transform each line
             Object resultData = null;
