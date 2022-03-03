@@ -17,6 +17,7 @@ Using Spring Boot Framework to provide the way of using Dependency Injection (Io
 * Add environment arguments: `--input input1.txt --inputtype string --operations cap --threads 1 --output output1.txt` and run the application
 * Add environment arguments: `--input input2.txt --inputtype integer --operations rev,neg --threads 1  --output output2.txt` and run the application
 * Add environment arguments: `--input input3.txt --inputtype double --operations rev,neg --threads 1  --output output3.txt` and run the application
+* Add environment arguments: `--input input4.txt --inputtype integer --operations rev,neg --threads 4 --output output4.txt` and run the application -> not working properly
 
 ## How to run application with different Scenarios (Under construction ... :)
 * Run `scripts/task1.sh` script from terminal for Scenario 1 with arguments: `--input input1.txt --inputtype string --operations cap --threads 1 --output output1.txt`
@@ -25,6 +26,8 @@ Using Spring Boot Framework to provide the way of using Dependency Injection (Io
   * Result would be written in output/output2.txt
 * Run `scripts/task3.sh` script from terminal for Scenario 3 with arguments: `--input input3.txt --inputtype double --operations rev,neg --threads 1  --output output3.txt`
   * Result would be written in output/output3.txt
+* Run `scripts/task4.sh` script from terminal for Scenario 4 with arguments: `--input input4.txt --inputtype integer --operations rev,neg --threads 3  --output output4.txt` -> not working properly
+  * Result would be written in output/output4.txt
 
 # Nice to have 
 
