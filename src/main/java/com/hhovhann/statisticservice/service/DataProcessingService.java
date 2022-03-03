@@ -36,7 +36,7 @@ public class DataProcessingService {
                 doTransformStatistics(clp, statistics, currentLine);
                 log.info(String.format("Task started with current statistic: %s, current thread id: %s.", currentLine, Thread.currentThread().getId()));
             }
-            // Step 5: Write statistics to file or print in terminal
+            // Step 5: Write statistics to output file or print in terminal
             doWriteStatistics(clp, statistics);
         });
         executorService.shutdown();
@@ -52,7 +52,6 @@ public class DataProcessingService {
     }
 
     private void doWriteStatistics(CommandLineParserService clp, List<Object> statistics) {
-        // Write statistic data to output file
         if (Objects.isNull(clp.getArgumentValues("output"))) {
             statistics.forEach(current -> log.info("Output Statistic Data: {}", current));
         } else {

@@ -13,6 +13,9 @@ public class DataTransformationService {
     private final static String CHAR_SEPARATOR = " ";
     private final static String DASH_SEPARATOR = "-";
 
+    /***
+     * Transform statistic data against provided operations: cap -> capitalize, rev-> reverse, neg -> negate,
+     */
     public Object transformData(Statistic statistic) {
         return switch (statistic.operation()) {
             case "cap" -> capitalize(statistic.currentLine());
@@ -21,7 +24,9 @@ public class DataTransformationService {
             default -> throw new RuntimeException("Operation not supported ...");
         };
     }
-
+    /***
+     * Reverse statistic value backwards
+     */
     Number reverse(String data, String inputType) {
         return switch (inputType) {
             case "integer" -> reverseInteger(NumberUtils.parseNumber(data, Integer.class));
@@ -30,6 +35,10 @@ public class DataTransformationService {
         };
     }
 
+    /***
+     * Reverse statistic integer value backwards
+     * Example: 786 ->687
+     */
     int reverseInteger(Number number) {
         String reversed;
         if (number.toString().startsWith(DASH_SEPARATOR)) {
@@ -40,6 +49,10 @@ public class DataTransformationService {
         return Integer.parseInt(reversed);
     }
 
+    /***
+     * Reverse statistic double value backwards.
+     * * Example: 786,98 -> 98.687
+     */
     double reverseDouble(Number number) {
         String reversed;
         if (number.toString().startsWith(DASH_SEPARATOR)) {
@@ -50,6 +63,10 @@ public class DataTransformationService {
         return Double.parseDouble(reversed);
     }
 
+    /***
+     * Negate statistic integer/double values.
+     * Example: 987 -> -789, 786,98 -> 98.687
+     */
     Number negate(String data, String inputType) {
         return switch (inputType) {
             case "integer" -> Math.negateExact(NumberUtils.parseNumber(data, Integer.class));
@@ -58,6 +75,10 @@ public class DataTransformationService {
         };
     }
 
+    /***
+     * Capitalize statistic string values.
+     * Example: hello -> Hello, hello world -> Hello World
+     */
     String capitalize(String data) {
         return Arrays
                 .stream(data.split(CHAR_SEPARATOR))
