@@ -28,9 +28,7 @@ public class StatisticServiceApplication implements CommandLineRunner {
             log.warn("No arguments are provided");
             return;
         }
-        // Parse arguments data from CLI
-        CommandLineParserService clp = new CommandLineParserService(args);
-        // Read input file and transform statistics based on provided operations
-        dataProcessingService.doStatisticProcess(clp);
+        // Read input file, transform statistics based on provided operations and write to file or print if output file is missing
+        dataProcessingService.doStatisticProcess(new CommandLineParserService(args));
     }
 }
