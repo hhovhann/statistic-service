@@ -34,6 +34,7 @@ public class DataProcessingService {
             for (String currentLine : inputLines) {
                 // Step 4: Transform each statistic line
                 doTransformStatistics(clp, statistics, currentLine);
+                log.info(String.format("Task started with current statistic: %s, current thread id: %s.", currentLine, Thread.currentThread().getId()));
             }
             // Step 5: Write statistics to file or print in terminal
             doWriteStatistics(clp, statistics);
@@ -48,7 +49,6 @@ public class DataProcessingService {
             resultData = dataTransformationService.transformData(new Statistic(currentLine, operation, clp.getArgumentValues("inputtype")));
         }
         statistics.add(resultData);
-        log.info(String.format("Starting expensive task with current statistic: %s, thread id: %s.", currentLine, Thread.currentThread().getId()));
     }
 
     private void doWriteStatistics(CommandLineParserService clp, List<Object> statistics) {
