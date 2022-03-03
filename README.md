@@ -29,4 +29,3 @@ Using Spring Boot Framework to provide the way of using Dependency Injection (Io
 # Nice to have 
 
 * Could have Integration tests to not testing manually by scripts the correct results
-* Task 3, ... solved :)
