@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,25 +24,31 @@ public class DataProcessingService {
         this.fileTransformationService = fileTransformationService;
     }
 
-    public List<Object> doStatisticProcess(CommandLineParserService clp) {
-        List<Object> outputLines = new ArrayList<>();
+    public void doStatisticProcess(CommandLineParserService clp) {
+        List<Object> statistics = new ArrayList<>();
         // Step 1: Run fixed thread pool based on threads CLI argument
         executorService = Executors.newFixedThreadPool(Integer.parseInt(clp.getArgumentValues("threads")));
-        // Step 2: Read input file
-        List<String> inputLines = fileTransformationService.readFrom("input" + "/" + clp.getArgumentValues("input"));
-        for (String currentLine : inputLines) {
-            executorService.execute(() -> {
+        // Step 2: Execute read and transformation async task
+        executorService.execute(() -> {
+            // Step 3: Read statistic data from file
+            List<String> inputLines = fileTransformationService.readFrom("input" + "/" + clp.getArgumentValues("input"));
+            for (String currentLine : inputLines) {
                 Object resultData = null;
                 String[] operations = clp.getArgumentValues("operations").split(QUOTA_SEPARATOR);
                 for (String operation : operations) {
-                    // Step 3: Transform each line
+                    // Step 4: Transform each statistic line
                     resultData = dataTransformationService.transformData(new Statistic(currentLine, operation, clp.getArgumentValues("inputtype")));
                 }
-                outputLines.add(resultData);
+                statistics.add(resultData);
                 log.info(String.format("Starting expensive task with current statistic: %s, thread id: %s.", currentLine, Thread.currentThread().getId()));
-            });
-        }
+            }
+            // Write statistic data to output file
+            if (Objects.isNull(clp.getArgumentValues("output"))) {
+                statistics.forEach(current -> log.info("Output Statistic Data: {}", current));
+            } else {
+                fileTransformationService.writeTo("output" + "/" + clp.getArgumentValues("output"), statistics);
+            }
+        });
         executorService.shutdown();
-        return outputLines;
     }
 }
