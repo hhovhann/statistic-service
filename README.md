@@ -6,7 +6,7 @@ Statistic provider demo application
 * Spring Boot 2.6.4
 
 # Software Design
-Using Spring Boot Framework to provide the way of using Dependency Injection (IoC). In main application class have Field injections in Data Processor service constructor injections
+Using Spring Boot Framework to provide the way of using Dependency Injection (IoC). In main application class and in Data Processor service constructor injections
 
 * CommandLineParserService - responsible for parsing CLI arguments
 * DataProcessingService - responsible for process data reading and transformation (may say data processor)
